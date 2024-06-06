@@ -43,6 +43,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * The controller for the api/samvad-ai endpoint
@@ -52,8 +53,15 @@ import org.springframework.web.bind.annotation.RestController;
 public class SamvadAIRestController implements InitializingBean {
 
     @RequestMapping(method = RequestMethod.POST)
-    public DummyResponse getBotOutput(){
-        return new DummyResponse("This is a dummy request.");
+    public DummyResponse getBotOutput(@RequestParam("file") MultipartFile file,
+        @RequestParam("query") String query){
+            
+        if(file.getOriginalFilename().equals("null")){    
+            return new DummyResponse("This is a dummy request with no file.");
+        }
+        else{
+            return new DummyResponse("This is a "+file.getOriginalFilename()+" request.");
+        }
     }
 
     static class DummyResponse {
