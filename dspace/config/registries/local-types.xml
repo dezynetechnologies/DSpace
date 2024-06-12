@@ -31,5 +31,11 @@
     <scope_note>Description of example metadata field.</scope_note>
   </dc-type>
 -->
+  <dc-type>
+    <schema>local</schema>
+    <element>genai</element>
+    <qualifier>vectorise</qualifier>
+    <scope_note>Description of example metadata field.</scope_note>
+  </dc-type>
 
 </dspace-dc-types>

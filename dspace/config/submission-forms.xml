@@ -46,6 +46,17 @@
                     <required></required>
                 </field>
             </row>
+            <row>
+                <field>
+                    <dc-schema>local</dc-schema>
+                    <dc-element>genai</dc-element>
+                    <dc-qualifier>vectorise</dc-qualifier>
+                    <repeatable>false</repeatable>
+                    <label>Enable Vectorisation for RAG</label>
+                    <input-type value-pairs-name="Boolean">dropdown</input-type>
+                    <hint>Enter the name of the file.</hint>
+                </field>
+            </row>
         </form>
 
         <!-- Form which defines the first page/section of the "traditional" DSpace submission process,
@@ -1983,6 +1994,17 @@
             <pair>
                 <displayed-value>Is a Funding Organization</displayed-value>
                 <stored-value>FundingOrganization</stored-value>
+            </pair>
+        </value-pairs>
+
+        <value-pairs value-pairs-name="Boolean" dc-term="type">
+            <pair>
+                <displayed-value>TRUE</displayed-value>
+                <stored-value>TRUE</stored-value>
+            </pair>
+            <pair>
+                <displayed-value>FALSE</displayed-value>
+                <stored-value>FALSE</stored-value>
             </pair>
         </value-pairs>
 

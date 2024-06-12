@@ -44,6 +44,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+// import org.dspace.services.OpenAI;
 
 /**
  * The controller for the api/samvad-ai endpoint
@@ -51,6 +52,10 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @RequestMapping("/api/samvad-ai")
 public class SamvadAIRestController implements InitializingBean {
+
+    SamvadAIRestController(){
+        
+    }
 
     @RequestMapping(method = RequestMethod.POST)
     public DummyResponse getBotOutput(@RequestParam("file") MultipartFile file,
