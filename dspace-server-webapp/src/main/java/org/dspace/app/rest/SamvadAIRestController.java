@@ -38,11 +38,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.RepresentationModel;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 // import org.dspace.services.OpenAI;
 
@@ -64,8 +72,36 @@ public class SamvadAIRestController implements InitializingBean {
         if(file.getOriginalFilename().equals("null")){    
             return new DummyResponse("This is a dummy request with no file.");
         }
+        else if (!file.getOriginalFilename().endsWith(".pdf")) {
+            return new DummyResponse("This is not a pdf file. Please upload a valid pdf file.");
+        }
         else{
-            return new DummyResponse("This is a "+file.getOriginalFilename()+" request.");
+            try {
+                RestTemplate restTemplate = new RestTemplate();
+
+                // Build the request body
+                HttpHeaders headers = new HttpHeaders();
+                headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+
+                MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
+                body.add("file", file.getResource());
+                body.add("query", query);
+
+                HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
+
+                // Send the request to the Flask server
+                ResponseEntity<String> response = restTemplate.exchange(
+                        "http://127.0.0.1:5000/upload",
+                        HttpMethod.POST,
+                        requestEntity,
+                        String.class);
+
+                return new DummyResponse(response.getBody());
+
+            } catch (Exception e) {
+                return new DummyResponse("Error: " + e.getMessage());
+            }
+            //return new DummyResponse("This is a "+file.getOriginalFilename()+" request.");
         }
     }
 
