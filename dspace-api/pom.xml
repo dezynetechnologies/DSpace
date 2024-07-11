@@ -578,14 +578,26 @@
             <groupId>org.apache.solr</groupId>
             <artifactId>solr-solrj</artifactId>
             <version>${solr.client.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.google.guava</groupId>
+                    <artifactId>guava</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <!-- Solr Core is only needed for Integration Tests (to run a MockSolrServer) -->
         <!-- The following Solr / Lucene dependencies also support integration tests -->
         <dependency>
             <groupId>org.apache.solr</groupId>
             <artifactId>solr-core</artifactId>
-            <scope>test</scope>
             <version>${solr.client.version}</version>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.google.guava</groupId>
+                    <artifactId>guava</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.apache.lucene</groupId>
@@ -854,7 +866,6 @@
                 </exclusion>
             </exclusions>
         </dependency>
-    
     </dependencies>
 
     <dependencyManagement>

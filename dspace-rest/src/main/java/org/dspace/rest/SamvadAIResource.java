@@ -101,7 +101,7 @@ public class SamvadAIResource extends Resource {
     //  */
     @GET
     @Path("/samvad-ai")
-    public String getBotOutput(@Context HttpServletRequest request){
+    public DummyResponse getBotOutput(@Context HttpServletRequest request){
         return new DummyResponse("This is a dummy request.");
     }
 
